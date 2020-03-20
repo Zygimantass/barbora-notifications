@@ -28,12 +28,11 @@ class Checker:
             return
 
         delivery_list = deliveries["deliveries"][0]["params"]["matrix"]
-        delivery_list[1]["hours"][0]["available"] = True
         available_deliveries_by_day = {day["id"]: self.available_deliveries(day["hours"]) for day in delivery_list}
 
         for day, deliveries in available_deliveries_by_day.items():
             if self.have_selected(deliveries):
-                logger.info("You have already selected a delivery, continuing")
+                self.logger.info("You have already selected a delivery, continuing")
                 return
         
         for day, deliveries in available_deliveries_by_day.items():
@@ -46,5 +45,5 @@ class Checker:
         
         return None
             
-            
+         
 
