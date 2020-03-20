@@ -1,4 +1,6 @@
-class PrintNotifier:
+from notifiers.notifier import Notifier
+
+class PrintNotifier(Notifier):
     def __init__(self, fmt):
         self.fmt = fmt
     

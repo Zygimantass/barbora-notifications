@@ -1,5 +1,5 @@
 import telegram
-from notifier import Notifier
+from notifiers.notifier import Notifier
 
 class TelegramNotifier(Notifier):
     def __init__(self, token, group_id):
