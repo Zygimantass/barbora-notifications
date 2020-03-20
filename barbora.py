@@ -57,3 +57,20 @@ class Barbora:
             return None 
 
         return response.json()
+    
+    def reserve_delivery_time(self, dayId, hourId):
+        self.logger.info("Reserving delivery time at {0}, id: {1}".format(dayId, hourId))
+        delivery_data = {
+            "dayId": dayId,
+            "hourId": hourId,
+            "isExpressDeliveryTimeslot": "false"
+        }
+
+        response = self.__post("cart/ReserveDeliveryTimeSlot", delivery_data)
+
+        if response.status_code != 200:
+            self.logger.error("Failed to reserve time slot: " + response.text)
+            return False
+
+        self.logger.info("Successfully reserved time slot")
+        return True
