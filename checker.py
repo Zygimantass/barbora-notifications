@@ -5,7 +5,7 @@ class Checker:
     def __init__(self, barbora_instance, notifiers):
         self.barbora = barbora_instance
         self.notifiers = notifiers
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger("barbora_notifications.checker")
         self.logger.setLevel(logging.DEBUG)
 
         self.barbora.login()

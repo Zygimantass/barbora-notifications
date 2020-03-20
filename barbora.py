@@ -16,7 +16,7 @@ class Barbora:
         self.username = username
         self.password = password
     
-        self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger("barbora_notifications.api")
         self.logger.setLevel(logging.DEBUG)
 
         self.session = requests.Session()

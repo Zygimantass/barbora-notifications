@@ -2,15 +2,29 @@ import requests
 import logging
 import config
 
+from logging.handlers import RotatingFileHandler
+
 from notifiers.print_notifier import PrintNotifier
 from notifiers.telegram_notifier import TelegramNotifier
 
 from barbora import Barbora
 from checker import Checker
 
-logging.basicConfig(format="[%(levelname)s] [%(name)s] [%(asctime)s] - %(message)s")
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("barbora_notifications")
 logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter("[%(levelname)s] [%(name)s] [%(asctime)s] - %(message)s")
+
+stream_handler = logging.StreamHandler()
+rotating_handler = RotatingFileHandler("/var/log/barbora.log", maxBytes=1000000, backupCount=20)
+
+stream_handler.setLevel(logging.DEBUG)
+rotating_handler.setLevel(logging.DEBUG)
+
+stream_handler.setFormatter(formatter)
+rotating_handler.setFormatter(formatter)
+
+logger.addHandler(stream_handler)
+logger.addHandler(rotating_handler)
 
 def get_telegram_notifier():
     return TelegramNotifier(config.TELEGRAM_TOKEN, config.TELEGRAM_GROUP_ID)
